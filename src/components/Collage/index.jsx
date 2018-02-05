@@ -8,7 +8,6 @@ import Collage from './Collage';
 import { ajax, wait } from '../utils/promises';
 import defaultData from './data.json';
 
-
 class CollageContainer extends Component {
   static propTypes = {
     children: PropTypes.node,
@@ -66,7 +65,7 @@ class CollageContainer extends Component {
         this.setState({
           loadingText: 'Error fetching data, loading old images'
         });
-        // setTimeout(() => this.setState({ data: defaultData }), 2000);
+        setTimeout(() => this.setState({ data: defaultData }), 2000);
       });
   }
 
