@@ -52,11 +52,11 @@ class CollageContainer extends Component {
         }).catch((err, arg) => console.log('err', err, arg))
       )
       .then(data => {
-        // const resultStr = prune(allData);
-        // window.open(
-        //   `data:text/json,${encodeURIComponent(resultStr)}`,
-        //   '_blank'
-        // );
+        const resultStr = prune(allData);
+        window.open(
+          `data:text/json,${encodeURIComponent(resultStr)}`,
+          '_blank'
+        );
         // console.log('allData', allData);
         this.setState({ data: allData });
       })
