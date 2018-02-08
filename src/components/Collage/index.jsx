@@ -6,7 +6,8 @@ import * as d3 from 'd3';
 import Collage from './Collage';
 
 import { ajax, wait } from '../utils/promises';
-import defaultData from './data.json';
+import defaultData1 from './data.json';
+import defaultData2 from './data1.json';
 
 class CollageContainer extends Component {
   static propTypes = {
@@ -52,11 +53,16 @@ class CollageContainer extends Component {
         }).catch((err, arg) => console.log('err', err, arg))
       )
       .then(data => {
-        const resultStr = prune(allData);
-        window.open(
-          `data:text/json,${encodeURIComponent(resultStr)}`,
-          '_blank'
-        );
+        // const resultStr1 = prune(allData.slice(0, allData.length / 2));
+        // window.open(
+        //   `data:text/json,${encodeURIComponent(resultStr1)}`,
+        //   '_blank'
+        // );
+        // const resultStr2 = prune(allData.slice(allData.length / 2));
+        // window.open(
+        //   `data:text/json,${encodeURIComponent(resultStr2)}`,
+        //   '_blank'
+        // );
         // console.log('allData', allData);
         this.setState({ data: allData });
       })
@@ -65,7 +71,7 @@ class CollageContainer extends Component {
         this.setState({
           loadingText: 'Error fetching data, loading old images'
         });
-        setTimeout(() => this.setState({ data: defaultData }), 2000);
+        setTimeout(() => this.setState({ data: [...defaultData1, ...defaultData2] }), 2000);
       });
   }
 
