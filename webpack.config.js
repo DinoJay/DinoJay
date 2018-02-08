@@ -122,7 +122,8 @@ module.exports = {
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      template: './src/template.html'
+      template: './src/template.html',
+      title: 'Jan\'s homepage'
     }),
     new webpack.EnvironmentPlugin({
       DiscogsAccessToken0: 'VWUpUBLQIKOsMRqMXrtPHnihphtVnyryitIMJTWt',
