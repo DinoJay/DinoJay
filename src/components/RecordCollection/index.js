@@ -11,6 +11,7 @@ import getData from './discogsData';
 
 // import $ from 'jquery';
 import CardStack from './CardStack';
+import DotDotDot from '../utils/DotDotDot';
 // import getData from './discogsData';
 // import dummyData from './dummyData';
 // import postcardStyle from '../styles/postcard.scss';
@@ -88,6 +89,7 @@ class RecordCollection extends React.Component {
       return (
         <h1 className="centered" style={{ lineHeight: `${height}px` }}>
           {loadingText}
+          <DotDotDot />
         </h1>
       );
     return <CardStack {...this.props} pad={40} data={data} />;

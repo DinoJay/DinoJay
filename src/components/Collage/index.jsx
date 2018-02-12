@@ -6,15 +6,17 @@ import * as d3 from 'd3';
 import Collage from './Collage';
 
 import { ajax, wait } from '../utils/promises';
+import DotDotDot from '../utils/DotDotDot';
 import defaultData1 from './data.json';
 import defaultData2 from './data1.json';
 
+
 class CollageContainer extends Component {
   static propTypes = {
-    children: PropTypes.node,
-    className: PropTypes.string,
     lessData: PropTypes.bool
   };
+
+  static defaultProps = { lessData: false };
 
   constructor(props) {
     super(props);
@@ -71,7 +73,10 @@ class CollageContainer extends Component {
         this.setState({
           loadingText: 'Error fetching data, loading old images'
         });
-        setTimeout(() => this.setState({ data: [...defaultData1, ...defaultData2] }), 2000);
+        setTimeout(
+          () => this.setState({ data: [...defaultData1, ...defaultData2] }),
+          2000
+        );
       });
   }
 
@@ -81,7 +86,7 @@ class CollageContainer extends Component {
     if (data.length === 0)
       return (
         <h1 className="centered" style={{ lineHeight: `${height}px` }}>
-          {loadingText}
+          {loadingText} <DotDotDot />
         </h1>
       );
 

@@ -17,22 +17,22 @@ import { forceExtent } from '../utils/helper';
 
 import cxx from './AboutVis.scss';
 
-// function outerRadiusPath(d) {
-//   // Total difference in x and y from source to target
-//   const diffX = d.target.x - d.source.x;
-//   const diffY = d.target.y - d.source.y;
-//
-//   // Length of path from center of source node to center of target node
-//   const pathLength = Math.sqrt(diffX * diffX + diffY * diffY);
-//
-//   // x and y distances from center to outside edge of target node
-//   const srcOffX = diffX * d.source.r / pathLength;
-//   const srcOffY = diffY * d.source.r / pathLength;
-//   const tgtOffX = diffX * d.target.r / pathLength;
-//   const tgtOffY = diffY * d.target.r / pathLength;
-//   return `M${d.source.x + srcOffX},${d.source.y + srcOffY}L${d.target.x -
-//     tgtOffX},${d.target.y - tgtOffY}`;
-// }
+function outerRadiusPath(d, pad = 3) {
+  // Total difference in x and y from source to target
+  const diffX = d.target.x - d.source.x;
+  const diffY = d.target.y - d.source.y;
+
+  // Length of path from center of source node to center of target node
+  const pathLength = Math.sqrt(diffX * diffX + diffY * diffY);
+
+  // x and y distances from center to outside edge of target node
+  const srcOffX = diffX * (d.source.r + pad) / pathLength;
+  const srcOffY = diffY * (d.source.r + pad) / pathLength;
+  const tgtOffX = diffX * (d.target.r + pad) / pathLength;
+  const tgtOffY = diffY * (d.target.r + pad) / pathLength;
+  return `M${d.source.x + srcOffX},${d.source.y + srcOffY}L${d.target.x -
+    tgtOffX},${d.target.y - tgtOffY}`;
+}
 
 const AboutVis = class AboutVis extends React.Component {
   static propTypes() {
@@ -59,8 +59,9 @@ const AboutVis = class AboutVis extends React.Component {
     });
 
     const links = [
-      { source: nodeData[0], target: nodeData[2] },
-      { source: nodeData[0], target: nodeData[2] }
+      { source: nodeData[0], target: nodeData[1] },
+      { source: nodeData[1], target: nodeData[2] },
+      { source: nodeData[2], target: nodeData[0] }
     ];
     // { source: 2, target: 4 }]);
 
@@ -194,15 +195,8 @@ const AboutVis = class AboutVis extends React.Component {
           ))}
           <g>
             {links.map(d => (
-              <path
-                fill="none"
-                stroke="black"
-                d={d3.line()([
-                  [d.source.x, d.source.y],
-                  [d.target.x, d.target.y]
-                ])}
-              />
-            ))}{' '}
+              <path fill="none" stroke="grey" d={outerRadiusPath(d, 4)} />
+            ))}
           </g>
         </g>
         <g>

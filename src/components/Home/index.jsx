@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import ReactDOM from 'react-dom';
+import { timeFormat, timeParse, timeYear, timeMonth, timeDay } from 'd3';
 // import _ from 'lodash';
 import AboutVis from './AboutVis';
 import style from '../styles/postcard.scss';
@@ -15,8 +16,17 @@ import reactLogo from './pics/react_logo.svg';
 import d3Logo from './pics/d3_logo.svg';
 import vinylIcon from './pics/music.svg';
 import headphonesIcon from './pics/headphones.svg';
+import astroIcon from './pics/astro.png';
 
 import PixelPic from './PixelPic';
+
+const ft = '%d/%m/%Y';
+const formatTime = timeFormat(ft);
+const parseTime = timeParse(ft);
+const birthdate = parseTime('26/04/1988');
+const todayDate = new Date();
+const thisYearBdate = parseTime(`26/04/${new Date().getFullYear()}`);
+const BelgiumArrivalDate = parseTime('22/09/2013');
 
 class Tooltip extends Component {
   static propTypes = {
@@ -138,34 +148,55 @@ const Home = ({ width, height, picDim }) => (
           <div>
             <h3>Something about me</h3>
             <p>
-              PhD student, orginally from Germany, 29 years old, now in Belgium
-              for almost 4 years. Getting my head around research, programming
-              and languages. Drinking cappucino, jogging, Diss-co music, working
-              on personal data visualization for learning as part of my day job
-              !
+              PhD student, orginally from Germany, (
+              {timeYear.count(birthdate, timeYear.offset(todayDate, -1))} years{
+                ' and '
+              }
+              {timeMonth.count(timeYear.offset(thisYearBdate, -1), todayDate)}{' '}
+              months old), in Belgium for almost{' '}
+              {timeYear.count(BelgiumArrivalDate, todayDate)} years now. Getting
+              my head around research, programming and languages. Drinking
+              cappucino in the morning, jogging and doing Diss-co music in the
+              evening. As part of my day job I work on data visualization and
+              educational games!
             </p>
             <p>
               <table className={style.centerTable}>
                 <tr>
                   <th>
-                    Day <span className={cx.emoji}>🌇</span>
+                    Day{' '}
+                    <span role="img" aria-label="emoji" className={cx.emoji}>
+                      🌇
+                    </span>
                   </th>
                   <th>
-                    Night* <span className={cx.emoji}>🌃</span>
+                    Night*{' '}
+                    <span role="img" aria-label="emoji" className={cx.emoji}>
+                      🌃
+                    </span>
                   </th>
                 </tr>
 
                 <tr>
                   <td>
-                    Gazing at <span className={cx.emoji}>💻</span>
+                    Gazing at{' '}
+                    <span role="img" aria-label="emoji" className={cx.emoji}>
+                      💻
+                    </span>
                   </td>
                   <td>
-                    <span className={cx.emoji}>🏃</span> in park
+                    <span role="img" aria-label="emoji" className={cx.emoji}>
+                      🏃
+                    </span>{' '}
+                    in park
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    Visualizing data <span className={cx.emoji}>📊</span>
+                    Visualizing data{' '}
+                    <span role="img" aria-label="emoji" className={cx.emoji}>
+                      📊
+                    </span>
                   </td>
                   <td>
                     <img
@@ -178,11 +209,21 @@ const Home = ({ width, height, picDim }) => (
                       style={{ width: '33px', height: '33px' }}
                       src={vinylIcon}
                     />{' '}
-                    music <span className={cx.emoji}>😎</span>
+                    music{' '}
+                    <span role="img" aria-label="emoji" className={cx.emoji}>
+                      😎
+                    </span>
                   </td>
                 </tr>
                 <tr>
-                  <td>getting lost in hyperspace</td>
+                  <td>
+                    getting lost in hyperspace{' '}
+                    <img
+                      style={{ width: '33px', height: '33px' }}
+                      alt="astro"
+                      src={astroIcon}
+                    />
+                  </td>
                   <td>scratching my head about real life </td>
                 </tr>
                 <tr>
@@ -218,7 +259,7 @@ const Home = ({ width, height, picDim }) => (
                       }}
                     />
                   </td>
-                  <td>learning French, forgetting German</td>
+                  <td>learning French and Dutch, forgetting German</td>
                 </tr>
                 <tr>
                   <td>

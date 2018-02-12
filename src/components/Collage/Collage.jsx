@@ -8,6 +8,8 @@ import { forceSurface } from 'd3-force-surface';
 // import { bboxCollide } from 'd3-bboxCollide';
 
 import cxx from './styles/collage.scss';
+
+import DotDotDot from '../utils/DotDotDot';
 // import postcardStyle from '../cxx/postcard.scss';
 
 // import pics from './collagePics';
@@ -199,6 +201,13 @@ class Collage extends React.Component {
     const stampNodes = nodes.filter(d => !d.header);
     const titleNode = nodes.find(d => d.header) || {};
 
+    console.log('nodes', nodes);
+    if (nodes.length === 0)
+      return (
+        <h1 className="centered" style={{ lineHeight: `${height}px` }}>
+          {'Computing Layout'}<DotDotDot />
+        </h1>
+      );
     // <span className={cxx.border}>&#x24B8; Pour les chomeurs</span>
     return (
       <div
